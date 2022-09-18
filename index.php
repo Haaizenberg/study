@@ -15,8 +15,8 @@ function getCarList(string $filename): array
         'truck',
         'spec_machine',
     ]);
-    $csv = file_get_contents("csv/$filename");
 
+    $csv = file_get_contents("csv/$filename");
     $machines = [];
     $maxColumnsCount = 0;
 
@@ -37,10 +37,10 @@ function getCarList(string $filename): array
                 switch ($attrs[0]) {
                     case 'car':
                         $machines[] = new Car(
-                            $attrs[3], // photo
-                            $attrs[1], // brand
-                            (float) $attrs[5], // carrying
-                            (int) $attrs[2], // seats count
+                            photoFileName: $attrs[3],
+                            brand: $attrs[1],
+                            carrying: (float) $attrs[5],
+                            passengerSeatsCount: (int) $attrs[2],
                         );
                         break;
     
@@ -48,21 +48,21 @@ function getCarList(string $filename): array
                         $bodyWhl = empty($attrs[4]) ? [ '0', '0', '0' ] : explode('x', $attrs[4]);
                         
                         $machines[] = new Truck(
-                            $attrs[3], // photo
-                            $attrs[1], // brand
-                            (float) $attrs[5], // carrying
-                            (float) $bodyWhl[0], // body length
-                            (float) $bodyWhl[1], // body width
-                            (float) $bodyWhl[2], // body height
+                            photoFileName: $attrs[3],
+                            brand: $attrs[1],
+                            carrying: (float) $attrs[5],
+                            bodyLength: (float) $bodyWhl[0],
+                            bodyWidth: (float) $bodyWhl[1],
+                            bodyHeight: (float) $bodyWhl[2],
                         );
                         break;
     
                     case 'spec_machine':
                         $machines[] = new SpecMachine(
-                            $attrs[3], // photo
-                            $attrs[1], // brand
-                            (float) $attrs[5], // carrying
-                            $attrs[6], // extra
+                            photoFileName: $attrs[3],
+                            brand: $attrs[1],
+                            carrying: (float) $attrs[5],
+                            extra: $attrs[6],
                         );
                         break;
                     
